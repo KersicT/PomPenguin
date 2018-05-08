@@ -2,6 +2,7 @@
   "name": "projektapi",
   "version": "1.0.0",
   "description": "",
+  "postinstall": "npm run build",
   "scripts": {
     "start": "node index.js"
   },

@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({
 db.once('open', function(){
 	console.log('Povezan z Mongo DB');
 })
+
 //check for db errors
 db.on('error', function(err){
 	console.log(err);
