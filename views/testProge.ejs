@@ -16,7 +16,7 @@
 			var proga;
 			var jsonProge;
 			$.ajax({
-			  url: "http://localhost:3000/racetrack/generator/50",
+			  url: "https://agile-island-71770.herokuapp.com/racetrack/generator/50",
 			  context: document.body
 			}).done(function(res) {
 			  jsonProge = JSON.stringify(res, null, 2);
@@ -91,7 +91,7 @@
 		//shranjevanje proge
 		$("#shraniProgo").click(function(){
 
-	   	var url = "http://localhost:3000/racetrack/";
+	   	var url = "https://agile-island-71770.herokuapp.com/racetrack/";
 	   	var objekt = proga;
 	   	$.ajax({
 		  url: url,

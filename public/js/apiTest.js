@@ -4,7 +4,7 @@ $(document).ready(function(){
 
    $("#vseProge").click(function(){
    	$.ajax({
-	  url: "https://agile-island-71770.herokuapp.com/racetrack",
+	  url: PageUrl + "/racetrack",
 	  context: document.body,
 	  success: function(res)
 	  {
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
    //get by id
    $("#pridobiProgo").click(function(){
-   	var url = "https://agile-island-71770.herokuapp.com/racetrack/"+ $('#izbranID').val();
+   	var url = PageUrl+"/racetrack/"+ $('#izbranID').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 	//delete by id
 	$("#zbrisiProgo").click(function(){
-   	var url = "https://agile-island-71770.herokuapp.com/racetrack/"+ $('#izbranID').val();
+   	var url = PageUrl+"/racetrack/"+ $('#izbranID').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 	//generiraj
 	$("#generirajProgo").click(function(){
-   	var url = "https://agile-island-71770.herokuapp.com/racetrack/generator/"+ $('#izbranaVelikost').val();
+   	var url = PageUrl+"/racetrack/generator/"+ $('#izbranaVelikost').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -73,7 +73,7 @@ $(document).ready(function(){
 
 	// vstavi generirano
 	$("#vstaviProgo").click(function(){
-   	var url = "http://localhost:3000/racetrack/";
+   	var url = PageUrl+"/racetrack/";
    	var objekt = JSON.parse($('#izbranaProga').val());
    	$.ajax({
 	  url: url,
@@ -98,7 +98,7 @@ $(document).ready(function(){
 
 	//najdi po st odsekov
 	$("#PoisciPoOdsekih").click(function(){
-   	var url = "http://localhost:3000/racetrack/stOdsekov/"+ $('#izbranoStOdsekov').val();
+   	var url = PageUrl+"/racetrack/stOdsekov/"+ $('#izbranoStOdsekov').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -116,7 +116,7 @@ $(document).ready(function(){
 
 	//put za povsodabljanje glede na id
 	$("#povsodobiProgo").click(function(){
-   	var url = "http://localhost:3000/racetrack/"+ $('#izbranID').val() + "/" + $('#novoIme').val();
+   	var url = PageUrl+"/racetrack/"+ $('#izbranID').val() + "/" + $('#novoIme').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -139,7 +139,7 @@ $(document).ready(function(){
 	//get vse
    $("#vsiOdseki").click(function(){
    	$.ajax({
-	  url: "http://localhost:3000/section",
+	  url: PageUrl+"/section",
 	  context: document.body,
 	  success: function(res)
 	  {
@@ -154,7 +154,7 @@ $(document).ready(function(){
 
    //get by id
    $("#pridobiOdsek").click(function(){
-   	var url = "http://localhost:3000/section/"+ $('#izbranIDOdsek').val();
+   	var url = PageUrl+"/section/"+ $('#izbranIDOdsek').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -172,7 +172,7 @@ $(document).ready(function(){
 
 	//delete by id
 	$("#zbrisiOdsek").click(function(){
-   	var url = "http://localhost:3000/section/"+ $('#izbranIDOdsek').val();
+   	var url = PageUrl+"/section/"+ $('#izbranIDOdsek').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -190,7 +190,7 @@ $(document).ready(function(){
 
 	// vstavi 
 	$("#vstaviOdsek").click(function(){
-   	var url = "http://localhost:3000/section/";
+   	var url = PageUrl+"/section/";
    	var objekt = JSON.parse($('#vstaviOdsekJson').val());
    	//alert($('#vstaviOdsekJson').val());
    	$.ajax({
@@ -218,7 +218,7 @@ $(document).ready(function(){
 
 	//najdi po tipu odseka
 	$("#PoisciPoTipuOdseka").click(function(){
-   	var url = "http://localhost:3000/section/sectionType/"+ $('#tipOdseka').val();
+   	var url = PageUrl+"/section/sectionType/"+ $('#tipOdseka').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -236,7 +236,7 @@ $(document).ready(function(){
 
 	//put za povsodabljanje glede na id
 	$("#posodobiTipOdsek").click(function(){
-   	var url = "http://localhost:3000/section/"+ $('#izbranIDOdsek').val() + "/" + $('#noviTipOdseka').val();
+   	var url = PageUrl+"/section/"+ $('#izbranIDOdsek').val() + "/" + $('#noviTipOdseka').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -253,7 +253,7 @@ $(document).ready(function(){
    });
 
 	$("#PoisciPoCurvatureOdseka").click(function(){
-   	var url = "http://localhost:3000/section/curvature/"+ $('#curvatureOdseka').val();
+   	var url = PageUrl+"/section/curvature/"+ $('#curvatureOdseka').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -271,7 +271,7 @@ $(document).ready(function(){
 
 
 	$("#PoisciPoBaseLengthOdseka").click(function(){
-   	var url = "http://localhost:3000/section/baseLength/"+ $('#baseLengthOdseka').val();
+   	var url = PageUrl+"/section/baseLength/"+ $('#baseLengthOdseka').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -291,7 +291,7 @@ $(document).ready(function(){
 
 	$("#vsiPin").click(function(){
    	$.ajax({
-	  url: "http://localhost:3000/penguin",
+	  url: PageUrl+"/penguin",
 	  context: document.body,
 	  success: function(res)
 	  {
@@ -306,7 +306,7 @@ $(document).ready(function(){
 
    //get by id
    $("#pridobiPin").click(function(){
-   	var url = "http://localhost:3000/penguin/"+ $('#izbranIDPin').val();
+   	var url = PageUrl+"/penguin/"+ $('#izbranIDPin').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -324,7 +324,7 @@ $(document).ready(function(){
 
 	//delete by id
 	$("#zbrisiPin").click(function(){
-   	var url = "http://localhost:3000/penguin/"+ $('#izbranIDPin').val();
+   	var url = PageUrl+"/penguin/"+ $('#izbranIDPin').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -342,7 +342,7 @@ $(document).ready(function(){
 
 	//generiraj
 	$("#genPin").click(function(){
-   	var url = "http://localhost:3000/penguin/generator";
+   	var url = PageUrl+"/penguin/generator";
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -360,7 +360,7 @@ $(document).ready(function(){
 
 	// vstavi generirano
 	$("#vstaviPin").click(function(){
-   	var url = "http://localhost:3000/penguin/";
+   	var url = PageUrl+"/penguin/";
    	var objekt = JSON.parse($('#izbranPin').val());
    	$.ajax({
 	  url: url,
@@ -392,7 +392,7 @@ $(document).ready(function(){
 
 	//put za povsodabljanje glede na id
 	$("#povsodobiPinName").click(function(){
-   	var url = "http://localhost:3000/penguin/"+ $('#izbranIDPin').val() + "/" + $('#newNamePin').val();
+   	var url = PageUrl+"/penguin/"+ $('#izbranIDPin').val() + "/" + $('#newNamePin').val();
    	//alert(url);
    	$.ajax({
 	  url: url,
@@ -409,7 +409,7 @@ $(document).ready(function(){
    });
 
 	$("#PoisciPoImenuPin").click(function(){
-   	var url = "http://localhost:3000/penguin/ime/" + $('#imePin').val();
+   	var url = PageUrl+"/penguin/ime/" + $('#imePin').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
