@@ -1,0 +1,25 @@
+{
+  "name": "projektapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tadeja, luka, filip",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "compression": "^1.7.2",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "express-validator": "^5.0.3",
+    "helmet": "^3.12.0",
+    "json-size": "^1.0.0",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3",
+    "request": "^2.85.0"
+  }
+}

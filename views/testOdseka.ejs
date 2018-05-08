@@ -1,0 +1,13 @@
+<% include partials/header %>
+	<h1>Test Odseka:</h1>
+	<table>
+		<% for(var i = 0; i < odsek.obstacleMatrix.length; i++){ %>
+		<tr>
+			<td><h4><%= odsek.obstacleMatrix[i][0] %></h4></td>
+			<td><h4><%= odsek.obstacleMatrix[i][1] %></h4></td>
+			<td><h4><%= odsek.obstacleMatrix[i][2] %></h4></td>
+		</tr>
+		<% } %>
+	</table>
+
+<% include partials/footer %>

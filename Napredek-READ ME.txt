@@ -1,0 +1,26 @@
+﻿Luka (11.4.2018: 23:55)
+	-generator deluje, z obèasnimi anomalijamo (prazna vrstica v odseku)
+	anomalije se pojavljajo približno na 5-6 odsekov narazen
+	-ostalo BP (brez posebnosti)
+
+Tadeja(12.4.2018: 14:16)
+	-postavitev ovir
+	-doloèanje naklona in ovinkov
+	-možnost shranjevanja proge v bazo
+
+	-shranjevanje proge prek JSON objektov v bazo (popravek na dovoljenem limitu za prenos)<-v zapisnik dodal Luka (13.4.2018)
+
+Tadeja(22.4.2018 18:42)
+	-paranje imen za pingvina (getPenguins) v datoteki /parsers/namesParser.js
+	-povsodobitev penginRouter, dodaten api, ki klice parser imen (/penguin/names)
+
+Filip(23.4.2018 23:01)
+	-parsanje imen za rakete (getRockets) - /parsers/namesParser.js
+	--povsodobitev penginRouter, za parsanje imen raket (/penguin/rockets)
+Luka(24.4.2018 22:06)
+	-parsanje imen za proge (getRaceTracks) - /parsers/namesParser.js
+	-posodobitev racetrackRouter, za parsanje imen proge (/racetrack/names)
+Tadeja(1.5.2018 11.28)
+	-popravljeno shranjevanje v bazo
+	-skupen dostop do baze z mLab
+		

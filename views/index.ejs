@@ -1,0 +1,77 @@
+<% include partials/header %>
+
+	<!-- od Tadeje -->
+
+	<h1>API test</h1>
+	<h3>racetrack:</h3>
+	<button class="btn btn-primary" style="margin: 5px" id="vseProge">Pridobi vse proge</button></br>
+	<label style="margin: 5px">ID: </label><input type="text" id="izbranID"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="pridobiProgo">Pridobi progo (ID)</button></br>
+	<button class="btn btn-primary" style="margin: 5px" id="zbrisiProgo">Zbrisi progo(ID)</button></br>
+	<label style="margin: 5px">Velikost Proge: </label><input type="text" id="izbranaVelikost"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="generirajProgo">Generiraj progo (JSON)</button></br>
+	<label style="margin: 5px">JSON Proge: </label><input style="width:800px;" type="text" id="izbranaProga" value='{"name": "Proga2","time":5,"sectionCounter":10, "reward":30}'></br>
+	<button class="btn btn-primary" style="margin: 5px" id="vstaviProgo">Vstavi progo (JSON)</button></br>
+	<label style="margin: 5px">Novo ime proge: </label><input  type="text" id="novoIme"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="povsodobiProgo">povsodobi progo (ID, ime)</button></br>
+	<label style="margin: 5px">St odsekov: </label><input type="text" id="izbranoStOdsekov"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoOdsekih">Najdi po (st odsekov)</button></br>
+	<p id="izpis"></p>
+
+
+	<br>
+	<hr>
+	<br>
+
+
+	<!-- od Luka -->
+	<h3>section:</h3>
+	<button class="btn btn-primary" style="margin: 5px" id="vsiOdseki">Pridobi vse odseke</button></br>
+	<label style="margin: 5px">ID: </label><input type="text" id="izbranIDOdsek"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="pridobiOdsek">Pridobi Odsek (ID)</button></br>
+	<button class="btn btn-primary" style="margin: 5px" id="zbrisiOdsek">Zbrisi Odsek(ID)</button></br>
+
+	<!--<button class="btn btn-primary" style="margin: 5px" id="generirajOdsek">Generiraj Odsek (JSON)</button></br>-->
+	<label style="margin: 5px">JSON Odseka: </label><input style="width:800px;" type="text" id="vstaviOdsekJson" value='{"name": "LevoSnegFilip69","sectionType": 1,"curvature": 69,"baseLength": 20,"incline": 30,"obstacleMatrix": []}'></br>
+	<button class="btn btn-primary" style="margin: 5px" id="vstaviOdsek">Vstavi(JSON)</button></br>
+
+	<label style="margin: 5px">Novi tip odseka: </label><input  type="text" id="noviTipOdseka"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="posodobiTipOdsek">Posodobi tip Odseka (ID, tipOdseka)</button></br>
+
+	<label style="margin: 5px">Tip Odseka </label><input type="text" id="tipOdseka"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoTipuOdseka">Najdi po tipu odseka (tip Odseka)</button></br>
+
+	<label style="margin: 5px">Kot zavoja odseka </label><input type="text" id="curvatureOdseka"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoCurvatureOdseka">Najdi po kotu zavoja odseka (kot zavoja)</button></br>
+
+	<label style="margin: 5px">Osnovna Dolzina Odseka </label><input type="text" id="baseLengthOdseka"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoBaseLengthOdseka">Najdi po osnovni dolzini odseka (dolzina odseka)</button></br>
+	<p id="izpisOdseka"></p>
+
+	<br>
+	<hr>
+	<br>
+
+	<!------od Filipa------>
+
+	<h3>Penguin:</h3>
+	<button class="btn btn-primary" style="margin: 5px" id="vsiPin">Pridobi vse pingvine</button></br>
+	<label style="margin: 5px">ID: </label><input type="text" id="izbranIDPin"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="pridobiPin">Pridobi pingvina(ID)</button></br>
+	<button class="btn btn-primary" style="margin: 5px" id="zbrisiPin">Zbrisi pingvina(ID)</button></br>
+	<button class="btn btn-primary" style="margin: 5px" id="genPin">Generiraj pingvina</button></br>
+
+	<label style="margin: 5px">JSON pingvin: </label><input style="width:800px;" type="text" id="izbranPin" value='{"name": "pen1", "color": "red", "baseSpeed": 100, "speed":{ "run": 10, "slide": 20, "swim": 30 }, "penguinCost": 100 }'></br>
+
+	<button class="btn btn-primary" style="margin: 5px" id="vstaviPin">Vstavi pingvina (JSON)</button></br>
+	<label style="margin: 5px">Novo ime: </label><input  type="text" id="newNamePin"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="povsodobiPinName">povsodobi pingvina (ID, ime)</button></br>
+
+	<label style="margin: 5px">Ime: </label><input  type="text" id="imePin"></br>
+	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoImenuPin">najdi po imenu pingvina (ime)</button></br>
+
+	<p id="izpisPin"></p>
+
+<% include partials/footer %>
+
+
