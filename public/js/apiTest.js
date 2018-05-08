@@ -1,9 +1,10 @@
 $(document).ready(function(){
 //--------racetrack----------
-	//get vse
+	var PageUrl = "https://agile-island-71770.herokuapp.com"
+
    $("#vseProge").click(function(){
    	$.ajax({
-	  url: "http://localhost:3000/racetrack",
+	  url: "https://agile-island-71770.herokuapp.com/racetrack",
 	  context: document.body,
 	  success: function(res)
 	  {
@@ -18,7 +19,7 @@ $(document).ready(function(){
 
    //get by id
    $("#pridobiProgo").click(function(){
-   	var url = "http://localhost:3000/racetrack/"+ $('#izbranID').val();
+   	var url = "https://agile-island-71770.herokuapp.com/racetrack/"+ $('#izbranID').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -36,7 +37,7 @@ $(document).ready(function(){
 
 	//delete by id
 	$("#zbrisiProgo").click(function(){
-   	var url = "http://localhost:3000/racetrack/"+ $('#izbranID').val();
+   	var url = "https://agile-island-71770.herokuapp.com/racetrack/"+ $('#izbranID').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
@@ -54,7 +55,7 @@ $(document).ready(function(){
 
 	//generiraj
 	$("#generirajProgo").click(function(){
-   	var url = "http://localhost:3000/racetrack/generator/"+ $('#izbranaVelikost').val();
+   	var url = "https://agile-island-71770.herokuapp.com/racetrack/generator/"+ $('#izbranaVelikost').val();
    	//alert(izbranID);
    	$.ajax({
 	  url: url,
