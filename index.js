@@ -76,7 +76,7 @@ app.get('/testProge', function(req, res){
 	res.render("testProge.ejs");
 })
 
-
+const host = '0.0.0.0';
 app.listen(process.env.PORT || 3000, function(){
 	console.log("server started on Port 3000...");
 })
