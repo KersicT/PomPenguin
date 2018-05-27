@@ -24,6 +24,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use(cors());
+
 //baza
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://penguin:mafiluta@ds163119.mlab.com:63119/pompenguin');
