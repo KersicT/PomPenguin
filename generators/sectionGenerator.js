@@ -57,9 +57,7 @@ module.exports = {
 		matrix.push([prvaVrsta[0],prvaVrsta[1],prvaVrsta[2]]);
 		
 
-		//TU SI ZGENERIRAJ PROGO
-
-		// random vpis v matriko 
+		//ZAČETEK GENERATORJA
 		for(var i = 1; i < baseLength; i++) 
 		{
 			var polja = [];
@@ -150,30 +148,15 @@ module.exports = {
 			i = i+stZaporednikKock-1;									// i-ju dodamo vrednost k-ja zato da ne gremo čez dolžino odseka
 		}
 
-		//da ima zadnja vrstica izhod zahtevanem mestu
-		/*var zadnjaVrsta = [] 
-		for(var j = 0; j < 3; j++)
-		{
-			if(j == mestoVstopa)
-			{
-				zadnjaVrsta.push(0);
-			}
-			else
-			{
-				zadnjaVrsta.push(1);
-			}
-		}
-		matrix.push([zadnjaVrsta[0],zadnjaVrsta[1],zadnjaVrsta[2]]);
-		*/
-
-
 
 		//TUKAJ POSTAVLJAŠ OVIRE KJER JE V MATRIKI DOLOČENO Z 
 		//poisci indekse z vrednostjo 1
+		var poljeMoznihPowerUp = [];
 		var poljaMoznihOvir = [];
+		var poljeMoznihCekinov = [];
 		for(var i = 0; i < matrix.length; i++)
 		{
-			
+			//ZA OVIRE
 			if(matrix[i][0] == 1)
 			{
 				var index = [];
@@ -195,7 +178,80 @@ module.exports = {
 				index.push(2);
 				poljaMoznihOvir.push(index);
 			}
+
+			// ZA CEKINE
+			if(i < matrix.length-2 && matrix[i][0] == 0 && matrix[i+1][0] == 0 && matrix[i+2][0] == 0)
+			{
+				var indexa = [];
+				indexa.push(i);
+				indexa.push(0);
+				poljeMoznihCekinov.push(indexa);
+			}
+			if(i < matrix.length-2 && matrix[i][1] == 0 && matrix[i+1][1] == 0 && matrix[i+2][1] == 0)
+			{
+				var indexa = [];
+				indexa.push(i);
+				indexa.push(1);
+				poljeMoznihCekinov.push(indexa);
+			}
+			if(i < matrix.length-2 && matrix[i][2] == 0 && matrix[i+1][2] == 0 && matrix[i+2][2] == 0)
+			{
+				var indexa = [];
+				indexa.push(i);
+				indexa.push(2);
+				poljeMoznihCekinov.push(indexa);
+			}
+			if(i % 4 == 0 && i < matrix.length - 3){				
+				if(matrix[i][0] == 0)
+				{
+					var indexb = [];
+					indexb.push(i);
+					indexb.push(0);
+					poljeMoznihPowerUp.push(indexb);
+				}
+				if(matrix[i][1] == 0)
+				{
+					var indexb = [];
+					indexb.push(i);
+					indexb.push(1);
+					poljeMoznihPowerUp.push(indexb);
+				}
+				if(matrix[i][2] == 0)
+				{
+					var indexb = [];
+					indexb.push(i);
+					indexb.push(2);
+					poljeMoznihPowerUp.push(indexb);
+				}				
+			}
 		}
+		for(var i = 0; i < 3; i++)
+		{
+			if(poljeMoznihCekinov.length > 0){
+				var izbranoPoljea = Math.floor(Math.random() * poljeMoznihCekinov.length);
+				var y = poljeMoznihCekinov[izbranoPoljea][0]; //pridmo na zacetno mesto kje v matriki bomo posatvili cekine
+				var x = poljeMoznihCekinov[izbranoPoljea][1];
+
+				for(var j = 0; j < 3; j++)
+				{
+					matrix[y+j][x] = 4;
+				}
+				poljeMoznihCekinov.splice(izbranoPoljea, 1);
+			}
+		}
+
+		//ZA POWERUP (Le en bo na približno 2 odseka)
+		var izbraniZaPowerup = Math.floor(Math.random() * poljeMoznihPowerUp.length);
+		if((Math.random()*100)> 25)
+		{
+			var y = poljeMoznihPowerUp[izbraniZaPowerup][0];
+			var x = poljeMoznihPowerUp[izbraniZaPowerup][1];
+			matrix[y][x] = 5;
+		}
+
+
+		var stOvir3 = Math.floor((Math.random()*stOvir*2) / tezavnostOdseka);
+
 
 		// med polji moznih ovir izberi polja za ovire
 		for(var i = 0; i < stOvir; i++)
@@ -206,10 +262,16 @@ module.exports = {
 				var y = poljaMoznihOvir[izbranoPolje][0]; //pridmo mesto kje v matriki bomo posatvili oviro
 				var x = poljaMoznihOvir[izbranoPolje][1];
 
-				matrix[y][x] = 2;
-				poljaMoznihOvir.splice(izbranoPolje, 1);
+				if(stOvir3 > 0 && Math.floor(Math.random()*100) > 50)
+				{
+					matrix[y][x] = 3;
+					poljaMoznihOvir.splice(izbranoPolje, 1);
+					stOvir3--;
+				}else{
+					matrix[y][x] = 2;
+					poljaMoznihOvir.splice(izbranoPolje, 1);
+				}			
 			}
-
 		}
 
 

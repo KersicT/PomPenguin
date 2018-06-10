@@ -36,7 +36,7 @@
         "penguinCost":{
             "type": Number,
             "required":true
-        }  
+        },
 	
   });
 

@@ -1,7 +1,12 @@
 <% include partials/header %>
 	<h1>Test Proge: </h1>
 	<p></p>
-	<button class="btn" id="shraniProgo">Shrani progo</button>
+	<button class="btn" id="generirajProgo">Generiraj progo</button>
+	<button class="btn" id="shraniProgo">Shrani progo</button><br>
+	<lable>Id Proge za prikaz: </lable></br>
+	<input id="idProgeZaPrikaz"></input></br>
+	<button class="btn" id="PrikaziProgo">Prikazi progo</button><br>
+
 
 	<br><br>
 	<div id="izrisProge"></div>
@@ -10,89 +15,55 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 
+			$('#shraniProgo').attr("disabled",true);
+			var progaZaShranit;
 
-
-			//ajax klic da oridobimo podatke o progi
-			var proga;
-			var jsonProge;
-			$.ajax({
-			  url: "https://agile-island-71770.herokuapp.com/racetrack/generator/50",
-			  context: document.body
-			}).done(function(res) {
-			  jsonProge = JSON.stringify(res, null, 2);
-			  //alert(jsonProge);
-			  //$("#izpisJSON").html(jsonProge);
-			  proga = JSON.parse(JSON.stringify(res));
-			  izrisiProgo(proga);
+			$('#generirajProgo').on('click',function()
+			{
+				$('#shraniProgo').attr("disabled",false);
+				$('#izrisProge').html("");
+				//ajax klic da oridobimo podatke o progi
+				var proga;
+				var jsonProge;
+				$.ajax({
+				  url: "http://localhost:3000/racetrack/generator/2",
+				  context: document.body
+				}).done(function(res) {
+				  jsonProge = JSON.stringify(res, null, 2);
+				  //alert(jsonProge);
+				  //$("#izpisJSON").html(jsonProge);
+				  proga = JSON.parse(JSON.stringify(res));
+				  izrisiProgo(proga);
+				  progaZaShranit = proga;
+				});			
 			});
 
-			function izrisiProgo(proga) 
+		$('#PrikaziProgo').on('click',function()
 			{
-				//$('#izrisProge').html(proga.name);
-				for(var i = 0; i < proga.sectionArray.length; i++) //vsak odsek je svoja tabela
-				{
-					var table = $('<table>');
+				$('#shraniProgo').attr("disabled",true);
 
-					if(proga.sectionArray[i].sectionType == 2) //voda
-					{
-						table.css('background-image', 'url("../slike/voda.jpg")');
-					}
-					else if(proga.sectionArray[i].sectionType == 1) //led
-					{
-						table.css('background-image', 'url("../slike/led.jpg")');
-					}
-					else if(proga.sectionArray[i].sectionType == 0)
-					{
-						table.css('background-image', 'url("../slike/sneg.jpg")');
-					}	
-
-					for(var j = 0; j < proga.sectionArray[i].obstacleMatrix.length; j++) //premik po vrsticah znotraj tabele
-					{
-						var tr = $('<tr>');
-						
-						for(var k = 0; k < proga.sectionArray[i].obstacleMatrix[j].length; k++) //premik po stolpcih znotarj tabela
-						{
-							var td = $('<td>');
-							if(proga.sectionArray[i].obstacleMatrix[j][k] == 0)
-							{
-								var slika = $('<img>');
-								slika.attr('src', '../slike/prazno.png');
-								slika.css('margin', '16px');
-							}
-							else if(proga.sectionArray[i].obstacleMatrix[j][k] == 1)
-							{
-								var slika = $('<img>');
-								slika.attr('src', '../slike/o.png');
-								slika.css('margin', '16px');
-								
-							}
-							else if(proga.sectionArray[i].obstacleMatrix[j][k] == 2)
-							{
-								var slika = $('<img>');
-								slika.attr('src', '../slike/x.png');
-								slika.css('margin', '20px');
-							}
-
-
-							td.append(slika);
-							tr.append(td);
-						
-						}
-
-						table.append(tr);
-					}
-					$('#izrisProge').append($('<p>').html("st: "+i +  " naklon: " + proga.sectionArray[i].incline + "° izhoda:  " + proga.sectionArray[i].curvature + "°")); //zaporedna stevilka odseka
-					$('#izrisProge').append(table);
-					$('#izrisProge').append("<br>");
-				}
-
-			}
+				$('#izrisProge').html("");
+				//ajax klic da oridobimo podatke o progi
+				var progaId = $('#idProgeZaPrikaz').val();
+				var proga;
+				var jsonProge;
+				$.ajax({
+				  url: "http://localhost:3000/racetrack/"+progaId,
+				  context: document.body
+				}).done(function(res) {
+				  jsonProge = JSON.stringify(res, null, 2);
+				  //alert(jsonProge);
+				  //$("#izpisJSON").html(jsonProge);
+				  proga = JSON.parse(JSON.stringify(res));
+				  izrisiProgo(proga);
+				});			
+			});
 
 		//shranjevanje proge
 		$("#shraniProgo").click(function(){
 
-	   	var url = "https://agile-island-71770.herokuapp.com/racetrack/";
-	   	var objekt = proga;
+	   	var url = "http://localhost:3000/racetrack/";
+	   	var objekt = progaZaShranit;
 	   	$.ajax({
 		  url: url,
 		  type: 'POST',
@@ -116,7 +87,73 @@
 		})
 	   });
 
+		function izrisiProgo(proga) 
+				{
+					//$('#izrisProge').html(proga.name);
+					for(var i = 0; i < proga.sectionArray.length; i++) //vsak odsek je svoja tabela
+					{
+						var table = $('<table>');
 
+						if(proga.sectionArray[i].sectionType == 2) //voda
+						{
+							table.css('background-image', 'url("../slike/voda.jpg")');
+						}
+						else if(proga.sectionArray[i].sectionType == 1) //led
+						{
+							table.css('background-image', 'url("../slike/led.jpg")');
+						}
+						else if(proga.sectionArray[i].sectionType == 0)
+						{
+							table.css('background-image', 'url("../slike/sneg.jpg")');
+						}	
+
+
+						for(var j = 0; j < proga.sectionArray[i].obstacleMatrix.length; j++) //premik po vrsticah znotraj tabele
+						{
+							var tr = $('<tr>');
+							
+							for(var k = 0; k < proga.sectionArray[i].obstacleMatrix[j].length; k++) //premik po stolpcih znotarj tabela
+							{
+								var td = $('<td>');
+								if(proga.sectionArray[i].obstacleMatrix[j][k] == 0)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/prazno.png');
+									slika.css('margin', '16px');
+								}
+								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 1)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/o.png');
+									slika.css('margin', '16px');
+									
+								}
+								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 2)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/x.png');
+									slika.css('margin', '20px');
+								}
+								else
+								{
+									var slika = $('<div>');
+									slika.append(proga.sectionArray[i].obstacleMatrix[j][k]+'');
+								}
+
+
+								td.append(slika);
+								tr.append(td);
+							
+							}
+
+							table.append(tr);
+						}
+						$('#izrisProge').append($('<p>').html("st: "+i +  " naklon: " + proga.sectionArray[i].incline + "° izhoda:  " + proga.sectionArray[i].curvature + "°")); //zaporedna stevilka odseka
+						$('#izrisProge').append(table);
+						$('#izrisProge').append("<br>");
+					}
+
+				}
 			
 		});
 	</script>

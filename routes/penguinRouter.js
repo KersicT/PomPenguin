@@ -67,7 +67,6 @@ router.get('/rockets', function(req, res)
 
 //vrni vse 
 router.get('/', function(req, res){
-	console.log("get /");
 
 	penguin.find(function(err, p){
 		if(err)

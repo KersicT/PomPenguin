@@ -1,0 +1,280 @@
+<% include partials/header %>
+	<h1>Test Simulatorja</h1>
+	<h4>Proge:</h4>
+    <div id="proge"></div>
+
+    <br>
+    <h4>Sestavljeni pingvini:</h4>
+    <div id="sPingvini"></div>
+
+    <br>
+
+    <script type="text/javascript">
+        //vse proge
+           $.ajax({
+          url: "http://localhost:3000/racetrack",
+          context: document.body,
+          success: function(res)
+          {
+               var rTabela = $('<table>');
+
+              var rtr = $('<tr>');
+              
+              rtr.append($('<td>').html("<b>id</b>"));
+              rtr.append($('<td>').html("<b>St vseh odsekov</b>"));
+              rtr.append($('<td>').html("<b>St odsekov Leda</b>"));
+              rtr.append($('<td>').html("<b>St odsekov Vode</b>"));
+              rtr.append($('<td>').html("<b>St odsekov Snega</b>"));
+
+              rTabela.append(rtr);
+
+              var proge = JSON.parse(JSON.stringify(res));
+              for(var i = 0; i < proge.length; i++)
+              {
+                //alert("http://localhost:3000/racetrack/"+proge[i]._id);
+                //ajax za st Odsekov
+                $.ajax({
+                url: "http://localhost:3000/racetrack/"+proge[i]._id,
+                context: document.body,
+                success: function(res)
+                {
+                      var proga = JSON.parse(JSON.stringify(res));
+
+                      var stVode = 0;
+                      var stLeda = 0;
+                      var stSnega = 0;
+
+                      for(var j = 0; j < proga.sectionArray.length; j++)
+                      {
+                        if(proga.sectionArray[j].sectionType == 0)
+                        {
+                          stSnega++;
+                        }
+                        if(proga.sectionArray[j].sectionType == 1)
+                        {
+                          stLeda++;
+                        }
+                        if(proga.sectionArray[j].sectionType == 2)
+                        {
+                          stVode++;
+                        }
+                      }
+
+                      var trr = $('<tr>');
+                      trr.append($('<td>').html(proga._id));
+                      trr.append($('<td>').html(proga.sectionCounter));
+                      trr.append($('<td>').html(stVode));
+                      trr.append($('<td>').html(stLeda));
+                      trr.append($('<td>').html(stSnega));
+                      rTabela.append(trr);
+
+                },
+                 error: function (xhr, ajaxOptions, thrownError) {
+                  alert(xhr.status);
+                  alert(thrownError);
+                }
+              })
+                 
+              }
+
+            $('#proge').append(rTabela);
+
+          },
+           error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+          }
+        })
+        //vse pingvin
+          $.ajax({
+          url: "http://localhost:3000/consPenguin",
+          context: document.body,
+          success: function(res)
+          {
+              var pingvini = JSON.parse(JSON.stringify(res));
+              var pTabela = $('<table>');
+
+              var tr = $('<tr>');
+              
+              tr.append($('<td>').html("<b>id</b>"));
+              tr.append($('<td>').html("<b>Osnovna hitrost</b>"));
+              tr.append($('<td>').html("<b>led</b>"));
+              tr.append($('<td>').html("<b>sneg</b>"));
+              tr.append($('<td>').html("<b>voda</b>"));
+              tr.append($('<td>').html("<b>izbolsava led</b>"));
+              tr.append($('<td>').html("<b>izboljsava sneg</b>"));
+              tr.append($('<td>').html("<b>izboljsava voda</b>"));
+
+               
+               pTabela.append(tr);
+
+              for(var i = 0; i < pingvini.length; i++)
+              {
+                  //klic za posameznega sPingvina:
+                  $.ajax({
+                  url: "http://localhost:3000/consPenguin/"+pingvini[i]._id,
+                  context: document.body,
+                  success: function(res)
+                  {
+                      var sPingvin = JSON.parse(JSON.stringify(res));
+                      
+                      //klic za pingvina
+                      $.ajax({
+                      url: "http://localhost:3000/penguin/"+sPingvin.penguin_id,
+                      context: document.body,
+                      success: function(res)
+                      {
+                          var pingvin = JSON.parse(JSON.stringify(res));
+                        
+                          //klic prve izboljsave
+                          $.ajax({
+                          url: "http://localhost:3000/improvement/"+sPingvin.iceImprov_id,
+                          context: document.body,
+                          success: function(res)
+                          {
+                              var izboljsavaLed = JSON.parse(JSON.stringify(res));
+                              
+                              //klic druge izboljsave
+                              $.ajax({
+                              url: "http://localhost:3000/improvement/"+sPingvin.snowImprov_id,
+                              context: document.body,
+                              success: function(res)
+                              {
+                                  var izboljsavaSneg = JSON.parse(JSON.stringify(res));
+                                  
+                                  //klic tretje izboljsave
+                                  $.ajax({
+                                  url: "http://localhost:3000/improvement/"+sPingvin.waterImprov_id,
+                                  context: document.body,
+                                  success: function(res)
+                                  {
+                                      var izboljsavaVoda = JSON.parse(JSON.stringify(res));
+                                      
+                    
+                                      
+
+     // !!!!!!!!!!!!!!!!!!!!!!      //izpis pingvinov
+                                      var pTr = $('<tr>');
+
+                                      var pTdId = $('<td>');
+                                      pTdId.append(sPingvin._id);
+                                      pTr.append(pTdId);
+
+                                      var pTdbaseSpeed = $('<td>');
+                                      pTdbaseSpeed.append(pingvin.baseSpeed);
+                                      pTr.append(pTdbaseSpeed);
+
+                                      var pTdRun = $('<td>');
+                                      pTdRun.append(pingvin.speed.run);
+                                      pTr.append(pTdRun);
+                                      var pTdSlide = $('<td>');
+                                      pTdSlide.append(pingvin.speed.slide);
+                                      pTr.append(pTdSlide);
+                                      var pTdSwim = $('<td>');
+                                      pTdSwim.append(pingvin.speed.swim);
+                                      pTr.append(pTdSwim);
+
+                                      var pTdRunI = $('<td>');
+                                      pTdRunI.append(izboljsavaLed.improvement_value);
+                                      pTr.append(pTdRunI);
+                                      var pTdSlideI = $('<td>');
+                                      pTdSlideI.append(izboljsavaSneg.improvement_value);
+                                      pTr.append(pTdSlideI);
+                                      var pTdSwimI = $('<td>');
+                                      pTdSwimI.append(izboljsavaVoda.improvement_value);
+                                      pTr.append(pTdSwimI);
+
+                                      /*pTd.append($('<p>').html(sPingvin._id + " base Speed=" + pingvin.baseSpeed + " led=" + pingvin.speed.run + " sneg=" + pingvin.speed.slide + " voda=" + pingvin.speed.swim + " izbLed=" + izboljsavaLed.improvement_value + " izbSneg=" + izboljsavaSneg.improvement_value +  " izbVoda=" + izboljsavaVoda.improvement_value));*/
+                                     
+                                     
+                                     
+                                      pTabela.append(pTr);
+                                      
+                                  },
+                                   error: function (xhr, ajaxOptions, thrownError) {
+                                    
+                                  }
+                                })
+
+                                  //posamezniPiingvin
+                                 /* $('#sPingvini').append($('<p>').html(sPingvin._id + " base Speed=" + pingvin.baseSpeed + " led=" + pingvin.speed.run + " sneg=" + pingvin.speed.slide + " voda=" + pingvin.speed.swim + " izbLed=" + izboljsavaLed.improvement_value + " izbSneeg=" + izboljsavaSneg.improvement_value));*/
+                                  
+                              },
+                               error: function (xhr, ajaxOptions, thrownError) {
+                                
+                              }
+                            })
+
+                             /* //posamezniPiingvin
+                              $('#sPingvini').append($('<p>').html(sPingvin._id + " base Speed=" + pingvin.baseSpeed + " led=" + pingvin.speed.run + " sneg=" + pingvin.speed.slide + " voda=" + pingvin.speed.swim + " izbLed=" + izboljsavaLed.improvement_value));*/
+                              
+                          },
+                           error: function (xhr, ajaxOptions, thrownError) {
+                            alert(xhr.status);
+                            alert(thrownError);
+                          }
+                        })
+
+                          /*//posamezniPiingvin
+                          $('#sPingvini').append($('<p>').html(sPingvin._id + " base Speed=" + pingvin.baseSpeed + " led=" + pingvin.speed.run + " sneg=" + pingvin.speed.slide + " voda=" + pingvin.speed.swim));*/
+                          
+                      },
+                       error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                      }
+                    })
+
+
+                      //posamezniPiingvin
+                      /*$('#sPingvini').append($('<p>').html(sPingvin._id));*/
+                      
+                  },
+                   error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                  }
+                })
+                 
+              }
+               $('#sPingvini').append(pTabela);
+
+          },
+           error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+          }
+        })
+    </script>
+	<p></p>
+		
+		<label> Id proge</label>
+		<input id="idProge"/><br/>
+    <label> Id sestavljenega pingvina</label>
+    <input id="idPingvin"/><br/>
+		<label> Tezavnost</label>
+		<input id="tezavnost"/><br/></br>
+		<button class="btn" id="kliciSimulator">Klici simulator</button>
+    </br>
+	  <p id="rezultat"></p>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#kliciSimulator').on('click', function(){
+				var pingvin = $('#idPingvin').val();
+				var proga =  $('#idProge').val();
+				var tezavnost = $('#tezavnost').val();
+				$.ajax({
+					url: "http://localhost:3000/simulator/"+proga+"/"+pingvin+"/"+tezavnost,
+					context: document.body
+				}).done(function(res) {
+					var rezultat = JSON.stringify(res);
+
+					$('#rezultat').append($('<p>').html("Rezultat: "+rezultat));		
+				});
+			});
+			
+		});
+	</script>
+	

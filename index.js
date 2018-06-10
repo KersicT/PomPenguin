@@ -24,8 +24,48 @@ app.use(helmet());
     next();
 });*/
 
-app.use(express.methodOverride());
+//app.use(express.methodOverride());
 app.use(cors());
+
+
+
+//JWT
+var jwt = require('jsonwebtoken');
+app.post('/api/posts',verifyToken, (req, res) =>{
+  
+      res.json({
+        message:"zascitena stran",
+      })
+  
+  
+})
+
+function verifyToken(req, res, next){
+  //get auth header value
+  const bearerHeader = req.headers['authorization'];
+  //preverimo ce bearer is udefined
+  if(typeof bearerHeader !== 'undefined'){
+    const bearer = bearerHeader.split(' '); //Barrer <accest token>
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+
+    jwt.verify(req.token, 'mafiluta',(err, authData) =>
+    {
+      if(err){
+        res.sendStatus(403);
+      }
+      else
+      {
+        next();
+      }
+    });
+  }
+  else
+  {
+    //forbidden
+    res.sendStatus(403);
+  }
+}
 
 //baza
 var mongoose = require('mongoose');
@@ -73,15 +113,27 @@ var penguin = require('./models/penguin');
 
 //------------------ROUTERS----------------
 //vsak objekt imas svoj router, ki omogoca delo z objektom
+var indexRouter = require('./routes/indexRouter');
+app.use('/',indexRouter);
+
 var racetrack = require('./routes/racetrackRouter');
-app.use('/racetrack', racetrack);
+app.use('/racetrack',verifyToken, racetrack);
 
 var section = require('./routes/sectionRouter');
-app.use('/section', section);
+app.use('/section',  section);
 
 var penguin = require('./routes/penguinRouter');
-app.use('/penguin', penguin);
+app.use('/penguin', verifyToken, penguin);
 
+
+var simulator = require('./routes/simulatorRouter');
+app.use('/simulator',verifyToken, simulator);
+
+var improvement = require('./routes/improvementRouter');
+app.use('/improvement',verifyToken, improvement);
+
+var consPenguin = require('./routes/consPenguinRouter');
+app.use('/consPenguin',verifyToken, consPenguin);
 
 //testni request
 app.get('/', function(req, res){
@@ -89,6 +141,10 @@ app.get('/', function(req, res){
 })
 app.get('/testProge', function(req, res){
 	res.render("testProge.ejs");
+})
+
+app.get('/testSimulator', function(req, res){
+    res.render("testSimulator.ejs");
 })
 
 const host = '0.0.0.0';

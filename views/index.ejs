@@ -1,8 +1,11 @@
 <% include partials/header %>
 
-	<!-- od Tadeje -->
-
+	<!--prijava-->
 	<h1>API test</h1>
+	<h3>Prijava</h3>
+	<a href="showPrijava">Prijavi se</a>
+
+	<!-- od Tadeje -->
 	<h3>racetrack:</h3>
 	<button class="btn btn-primary" style="margin: 5px" id="vseProge">Pridobi vse proge</button></br>
 	<label style="margin: 5px">ID: </label><input type="text" id="izbranID"></br>
@@ -52,25 +55,81 @@
 	<hr>
 	<br>
 
-	<!------od Filipa------>
+	<!--od Filipa-->
 
 	<h3>Penguin:</h3>
+
 	<button class="btn btn-primary" style="margin: 5px" id="vsiPin">Pridobi vse pingvine</button></br>
-	<label style="margin: 5px">ID: </label><input type="text" id="izbranIDPin"></br>
+
+	<label style="margin: 5px">ID: </label>
+	<input type="text" id="izbranIDPin"></br>
+
 	<button class="btn btn-primary" style="margin: 5px" id="pridobiPin">Pridobi pingvina(ID)</button></br>
+
 	<button class="btn btn-primary" style="margin: 5px" id="zbrisiPin">Zbrisi pingvina(ID)</button></br>
+
 	<button class="btn btn-primary" style="margin: 5px" id="genPin">Generiraj pingvina</button></br>
 
-	<label style="margin: 5px">JSON pingvin: </label><input style="width:800px;" type="text" id="izbranPin" value='{"name": "pen1", "color": "red", "baseSpeed": 100, "speed":{ "run": 10, "slide": 20, "swim": 30 }, "penguinCost": 100 }'></br>
+	<label style="margin: 5px">JSON pingvin: </label>
+	<input style="width:800px;" type="text" id="izbranPin" value='{"name": "pen1", "color": "red", "baseSpeed": 100, "speed":{ "run": 10, "slide": 20, "swim": 30 }, "penguinCost": 100 }'></br>
 
 	<button class="btn btn-primary" style="margin: 5px" id="vstaviPin">Vstavi pingvina (JSON)</button></br>
-	<label style="margin: 5px">Novo ime: </label><input  type="text" id="newNamePin"></br>
+
+	<label style="margin: 5px">Novo ime: </label>
+	<input  type="text" id="newNamePin"></br>
+
 	<button class="btn btn-primary" style="margin: 5px" id="povsodobiPinName">povsodobi pingvina (ID, ime)</button></br>
 
-	<label style="margin: 5px">Ime: </label><input  type="text" id="imePin"></br>
+	<label style="margin: 5px">Ime: </label>
+	<input  type="text" id="imePin"></br>
+
 	<button class="btn btn-primary" style="margin: 5px" id="PoisciPoImenuPin">najdi po imenu pingvina (ime)</button></br>
 
 	<p id="izpisPin"></p>
+
+	<br>
+	<hr>
+	<br>
+
+	<h3>Sestavljen pingvin</h3>
+
+	<label style="margin: 5px">ID: </label>
+	<input type="text" id="izbranID_consPin"></br>
+
+	<button class="btn btn-primary" style="margin: 5px" id="pridobi_consPin">Pridobi sestavljenega
+	pingvina(ID)</button></br>
+
+	<p id="izpis_consPin"></p><br>
+
+	<h4>Izboljsava</h4>
+
+	<div class="form-group" style="width: 100px">
+		<label style="margin: 5px">Izboljsava: </label><br>
+		<select style="margin: 5px" class="form-control" id="select_improv_type">
+			<option value="ice">Ice</option>
+			<option value="snow">Snow</option>
+			<option value="water">Water</option>
+		</select>
+		<input style="margin: 5px" type="number" min="1" id="input_improv_val">
+		<button style="margin: 5px" class="btn btn-primary" id="add_improv" >Dodaj izboljsavo</button>
+	</div>
+
+	<label style="margin: 5px">Izberi izboljsavo(ID):</label><br>
+	<input style="margin: 5px" type="text" id="izbranID_improv"><br>
+	<button style="margin: 5px" class="btn btn-primary" id="pridobiImprov">Pridobi izboljsavo(ID)</button><br>
+
+	<p id="izpisImprov"></p>
+
+
+	<label style="margin: 5px">Pingvin ID: </label><br>
+	<input style="margin: 5px" type="text" id="izbranID_Pin_forImprov"><br>
+	<button style="margin: 5px" class="btn btn-primary" id="pridobiPin_forImprov">Pridobi pingvina(ID)</button>
+	
+	<p id="izpisPin_im"></p>
+
+	<button style="margin: 5px" class="btn btn-primary" id="consPen">Dodaj izboljsavo</button>
+
+	
 
 <% include partials/footer %>
 

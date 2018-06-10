@@ -62,7 +62,6 @@ router.get('/generator/:stOdsekov', function(req, res){
 
 //vrni vse 
 router.get('/', function(req, res){
-	console.log("get /");
 
 	racetrack.find(function(err, p){
 		if(err)
