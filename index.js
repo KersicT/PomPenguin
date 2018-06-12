@@ -21,7 +21,7 @@ app.use(helmet());
 app.use(express.methodOverride());
 app.use(cors());
 
-app.use(cors({
+/*app.use(cors({
   credentials: true,
   origin: function(origin, callback){
     // allow requests with no origin 
@@ -34,7 +34,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
+}));*/
 
 //JWT
 var jwt = require('jsonwebtoken');
