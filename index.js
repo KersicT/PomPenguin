@@ -104,7 +104,7 @@ function verifyToken(req, res, next){
 
 //baza
 var mongoose = require('mongoose');
-mongoose.connect( process.env.MONGODB_URI || 'mongodb://penguin:mafiluta@ds163119.mlab.com:63119/pompenguin');
+mongoose.connect('mongodb://penguin:mafiluta@ds163119.mlab.com:63119/pompenguin');
 let db = mongoose.connection;
 mongoose.Promise = global.Promise; //da se izognemo opozorilom
 
