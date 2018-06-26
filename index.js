@@ -32,14 +32,6 @@ app.use(cors({
   }
 }));*/
 
-var cors = require('cors');
-var allowedOrigins = ['http://localhost:8100','http://localhost:3000',
-                      'http://yourapp.com'];
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 
 //JWT
