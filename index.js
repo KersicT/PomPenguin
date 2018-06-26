@@ -13,11 +13,11 @@ app.use(compression()); //Compress all routes
 var helmet = require('helmet');
 app.use(helmet());
 app.use(express.methodOverride());
-app.use(cors());
+//app.use(cors());
 
 //CORS
 
-/*var cors = require('cors');
+var cors = require('cors');
 var allowedOrigins = ['http://localhost:8100','http://localhost:3000',
                       'http://yourapp.com'];
 app.use(cors({
@@ -33,7 +33,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));*/
+}));
 
 
 
