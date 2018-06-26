@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var methodOverride = require('method-override');
+//var methodOverride = require('method-override');
 //var expressValidator = require('expressValidator');
 
 var app = express();
@@ -12,7 +12,7 @@ var compression = require('compression');
 app.use(compression()); //Compress all routes
 var helmet = require('helmet');
 app.use(helmet());
-app.use(express.methodOverride());
+//app.use(express.methodOverride());
 //app.use(cors());
 
 //CORS
