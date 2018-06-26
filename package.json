@@ -27,6 +27,7 @@
     "helmet": "^3.12.1",
     "json-size": "^1.0.0",
     "jsonwebtoken": "^8.2.2",
+    "method-override": "^2.3.10",
     "mongoose": "^5.0.12",
     "nodemon": "^1.17.5",
     "request": "^2.85.0"
