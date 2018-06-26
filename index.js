@@ -10,14 +10,14 @@ var app = express();
 process.env.NODE_ENV = 'production';
 var compression = require('compression'); 
 app.use(compression()); //Compress all routes
-//var helmet = require('helmet');
-//app.use(helmet());
+var helmet = require('helmet');
+app.use(helmet());
 //app.use(express.methodOverride());
 //app.use(cors());
 
 //CORS
 
-/*var cors = require('cors');
+var cors = require('cors');
 var allowedOrigins = ['http://localhost:8100','http://localhost:3000',
                       'http://yourapp.com'];
 app.use(cors({
@@ -33,7 +33,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));*/
+}));
 
 
 
@@ -78,7 +78,7 @@ function verifyToken(req, res, next){
 
 
 
-/*app.use(function (req, res, next) {
+app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -95,7 +95,7 @@ function verifyToken(req, res, next){
 
     // Pass to next layer of middleware
     next();
-});*/
+});
 
 //baza
 var mongoose = require('mongoose');
