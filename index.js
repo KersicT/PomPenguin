@@ -11,8 +11,6 @@ var compression = require('compression');
 app.use(compression()); //Compress all routes
 var helmet = require('helmet');
 app.use(helmet());
-var cors = require('cors');
-app.use(cors);
 
 //CORS
 
@@ -77,7 +75,7 @@ function verifyToken(req, res, next){
 
 
 
-/*app.use(function (req, res, next) {
+app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -94,7 +92,7 @@ function verifyToken(req, res, next){
 
     // Pass to next layer of middleware
     next();
-});*/
+});
 
 //baza
 var mongoose = require('mongoose');
