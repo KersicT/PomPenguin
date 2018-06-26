@@ -55,7 +55,7 @@ router.get('/names', function(req, res)
 
 //vrni generiranega
 router.get('/generator/:stOdsekov', function(req, res){
-	var proga = racetrackGenerator.generirajProgo(req.params.stOdsekov, 3);
+	var proga = racetrackGenerator.generirajProgo(req.params.stOdsekov, 2);
 	res.json(proga);
 
 });
@@ -98,6 +98,8 @@ router.post('/', function(req, res)
 	console.log("velikost" + jsonSize(req.body));
 	var p = new racetrack(req.body);
 	var error = p.validateSync();
+
+	console.log(p);
 
 	p.save(function(err, p)
 	{

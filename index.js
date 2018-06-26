@@ -1,27 +1,23 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var cors = require('cors');
-var methodOverride = require('method-override');
 //var expressValidator = require('expressValidator');
 
 var app = express();
 
-//production mode - zaradi vernosti odstrani error pages and in sčisti logging
+//za heroku
 process.env.NODE_ENV = 'production';
-var compression = require('compression'); // zmanjsa cas nalaganja
+var compression = require('compression'); 
 app.use(compression()); //Compress all routes
 var helmet = require('helmet');
 app.use(helmet());
-//menjaj console z debug
 
-//set header
+//CORS
 
-
-app.use(express.methodOverride());
-app.use(cors());
-
-/*app.use(cors({
+/*var cors = require('cors');
+var allowedOrigins = ['http://localhost:8100','http://localhost:3000',
+                      'http://yourapp.com'];
+app.use(cors({
   credentials: true,
   origin: function(origin, callback){
     // allow requests with no origin 
@@ -35,6 +31,16 @@ app.use(cors());
     return callback(null, true);
   }
 }));*/
+
+var cors = require('cors');
+var allowedOrigins = ['http://localhost:8100','http://localhost:3000',
+                      'http://yourapp.com'];
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 //JWT
 var jwt = require('jsonwebtoken');
@@ -74,9 +80,45 @@ function verifyToken(req, res, next){
   }
 }
 
+
+//seja
+var session = require('express-session');
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false
+}));
+
+//production mode - zaradi vernosti odstrani error pages and in sčisti logging
+process.env.NODE_ENV = 'production';
+var compression = require('compression'); // zmanjsa cas nalaganja
+app.use(compression()); //Compress all routes
+var helmet = require('helmet');
+app.use(helmet());
+//menjaj console z debug
+
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 //baza
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://penguin:mafiluta@ds163119.mlab.com:63119/pompenguin');
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://penguin:mafiluta@ds163119.mlab.com:63119/pompenguin');
 let db = mongoose.connection;
 mongoose.Promise = global.Promise; //da se izognemo opozorilom
 
@@ -89,19 +131,18 @@ app.use(bodyParser.urlencoded({
     
     extended: true
   }));
-
-
-
 //app.use(express.bodyParser({limit:'50mb'}));
 //check connection
 db.once('open', function(){
 	console.log('Povezan z Mongo DB');
 })
-
 //check for db errors
 db.on('error', function(err){
 	console.log(err);
 })
+
+
+
 
 //set static path
 app.use(express.static(path.join(__dirname, 'public')));
@@ -110,12 +151,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//--------------------MODELS---------------
-//pridobimo obliko modelov za objekte
-var racetrack = require('./models/racetrack');
-var penguin = require('./models/penguin');
-//./models/penguin
-//./models/section
+
 
 
 //------------------ROUTERS----------------
@@ -124,7 +160,7 @@ var indexRouter = require('./routes/indexRouter');
 app.use('/',indexRouter);
 
 var racetrack = require('./routes/racetrackRouter');
-app.use('/racetrack',verifyToken, racetrack);
+app.use('/racetrack', racetrack);
 
 var section = require('./routes/sectionRouter');
 app.use('/section',  section);
@@ -132,15 +168,15 @@ app.use('/section',  section);
 var penguin = require('./routes/penguinRouter');
 app.use('/penguin', verifyToken, penguin);
 
-
 var simulator = require('./routes/simulatorRouter');
-app.use('/simulator',verifyToken, simulator);
+app.use('/simulator', simulator);
 
 var improvement = require('./routes/improvementRouter');
 app.use('/improvement',verifyToken, improvement);
 
 var consPenguin = require('./routes/consPenguinRouter');
 app.use('/consPenguin',verifyToken, consPenguin);
+
 
 //testni request
 app.get('/', function(req, res){
@@ -151,10 +187,10 @@ app.get('/testProge', function(req, res){
 })
 
 app.get('/testSimulator', function(req, res){
-    res.render("testSimulator.ejs");
+	res.render("testSimulator.ejs");
 })
 
-const host = '0.0.0.0';
+
 app.listen(process.env.PORT || 3000, function(){
 	console.log("server started on Port 3000...");
 })

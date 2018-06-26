@@ -1,11 +1,17 @@
 var section = require('./algoritemIskanjaPoti.js');
 var simulatorModel = require('../models/simulatorModel.js');
 
-function casPolja(tipPolja,hitrost,fizicnaDolzinaEnegaPolja)
+function casPolja(tipPolja,hitrost,fizicnaDolzinaEnegaPolja, cekini)
 {
 	if(tipPolja == 0 || tipPolja == 1 || tipPolja == 4){
+		if(tipPolja == 4)
+		{
+			cekini.vsota++;
+			console.log("Cekini: "+cekini.vsota);
+		}
 		return fizicnaDolzinaEnegaPolja/hitrost;
 	}
+
 
 	if(tipPolja == 2){
 		return (fizicnaDolzinaEnegaPolja/hitrost)*1.5;
@@ -23,8 +29,13 @@ function casPolja(tipPolja,hitrost,fizicnaDolzinaEnegaPolja)
 module.exports = {
 	simulator: function (proga, sestavljenPingvin, tezavnost, idPingvina, idProge){
 		
+		var cekini = ({
+			vsota: 0,
+		});
 		var trenutnaPozicija;
 		var vmesniCasi=[];
+		var vmesniCekini=[];
+		var vmesniTipiPodlage=[];
 		var skupniCasProge=0;
 		sestevekCasov = 0;
 		for(var i = 0; i<proga.sectionCounter;i++)
@@ -71,13 +82,17 @@ module.exports = {
 				var vrstica = UiPot[j];
 				vrsticaPrva = odsekPrvi.obstacleMatrix[j];
 				vrsticaDruga = odsekPrvi.obstacleMatrix[j+1];
-				skupniCasOdseka = skupniCasOdseka + casPolja(vrsticaPrva[vrstica[1]],hitrost[odsekPrvi.sectionType],5);	//base length za polje je 3
+				skupniCasOdseka = skupniCasOdseka + casPolja(vrsticaPrva[vrstica[1]],hitrost[odsekPrvi.sectionType],3, cekini);	//base length za polje je 3
 				
 			}
 			sestevekCasov = Math.round( (sestevekCasov + skupniCasOdseka)*100 ) / 100;
 
 			vmesniCasi.push(sestevekCasov);
+			var vsota = cekini.vsota;
+			vmesniCekini.push(vsota);
 			console.log(vmesniCasi);
+			vmesniTipiPodlage.push(odsekPrvi.sectionType);
+
 			skupniCasProge = skupniCasProge + skupniCasOdseka;
 			var tmpa = (UiPot.length)/2;
 			var tmp = UiPot[tmpa];
@@ -91,7 +106,7 @@ module.exports = {
 			});
 			console.log(i);
 
-			test.save(function(err, p){});
+			//test.save(function(err, p){});
 
 
 
@@ -100,7 +115,10 @@ module.exports = {
 		skupniCasProge =  Math.round( skupniCasProge*100 ) / 100;
 		var rezultat = {
 			vmesniCasi: vmesniCasi,
-			skupniCasProge: skupniCasProge
+			skupniCasProge: skupniCasProge,
+			vmesniCekini: vmesniCekini,
+			skupniCekini: cekini.vsota,
+			vmesniTipiPodlage: vmesniTipiPodlage,
 		};
 		return rezultat;
 	}

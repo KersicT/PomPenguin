@@ -18,7 +18,7 @@ module.exports = {
 		var reward = Math.floor((Math.random() * 20) + 1);
 		var tezavnost = 5;
 
-		console.log("minZaporednih: " + minZaporednih);
+		//console.log("minZaporednih: " + minZaporednih);
 
 		var stZaporednih = 0; //stejemo koliko je zaporednih in jih dolocimo tako, da je zaporedoma vsaj minZaporednih
 		//izberemo random tip za prvi odsek
@@ -89,7 +89,7 @@ module.exports = {
 			}
 			
 			//generiramo odsek
-			console.log(curvature[izbranOvinek] + " menjava tipa: " + izbranNoviTip);
+			//console.log(curvature[izbranOvinek] + " menjava tipa: " + izbranNoviTip);
 			var odsek = sectionGenerator.generirajOdsek(mestoPrehoda, tip,tezavnost, curvature[izbranOvinek]); //generiramo nov odsek z izbranimmestom brez ovir
 			stZaporednih++;
 			odseki.push(odsek);
@@ -108,13 +108,13 @@ module.exports = {
 				if(i == odseki.length-1)
 				{
 					skupine.push(skupina);
-					console.log("zacetna: "+ skupina.length);
+					//console.log("zacetna: "+ skupina.length);
 				}
 			}
 			else
 			{
 				skupine.push(skupina);
-				console.log("zacenta: "+ skupina.length);
+				//console.log("zacenta: "+ skupina.length);
 				skupina = [];
 				trenutniTip = odseki[i].sectionType;
 				skupina.push(odseki[i]);
@@ -128,7 +128,7 @@ module.exports = {
 		{
 			stevecKoncnih++;
 		}
-		console.log("stKoncnih"+stevecKoncnih);
+		//console.log("stKoncnih"+stevecKoncnih);
 		if(stevecKoncnih < minZaporednih)
 		{
 			var zahtevanTip = odseki[odseki.length-1-stevecKoncnih].sectionType;
@@ -154,7 +154,7 @@ module.exports = {
 				nenajdeniTipi.push(i);
 			}
 		}
-		console.log(JSON.stringify(nenajdeniTipi));
+		//console.log(JSON.stringify(nenajdeniTipi));
 		if(nenajdeniTipi.length > 0) //ce tipi ne obstajajo
 		{
 
@@ -165,7 +165,7 @@ module.exports = {
 				if(skupine[i].length >= 2*minZaporednih)
 				{
 					dolgiOdseki.push(i);
-					console.log("dolgi odseki" + i + " : "+ skupine[i].length)
+					//console.log("dolgi odseki" + i + " : "+ skupine[i].length)
 				}
 			}
 
@@ -177,15 +177,15 @@ module.exports = {
 					var izbranDolgiOdsek = Math.floor(Math.random() * dolgiOdseki.length);
 					for(var k = 0; k < minZaporednih; k++)
 					{
-						console.log("prepsujem odsek" + dolgiOdseki[izbranDolgiOdsek] + " v tip" + nenajdeniTipi[0] +  "stdilgih odsekov " + dolgiOdseki.length);
+						//console.log("prepsujem odsek" + dolgiOdseki[izbranDolgiOdsek] + " v tip" + nenajdeniTipi[0] +  "stdilgih odsekov " + dolgiOdseki.length);
 						skupine[dolgiOdseki[izbranDolgiOdsek]][k].sectionType = nenajdeniTipi[0]; //vstavimo minimalno stevilo odseka, ki ga prej ni bilo
 					}
-					console.log("ostale:" + (skupine[dolgiOdseki[izbranDolgiOdsek]].length - minZaporednih));
+					//console.log("ostale:" + (skupine[dolgiOdseki[izbranDolgiOdsek]].length - minZaporednih));
 					if(skupine[dolgiOdseki[izbranDolgiOdsek]].length - minZaporednih >= 2*minZaporednih)
 					{
 						for(var k = 0; k < minZaporednih; k++)
 						{
-							console.log("prepsujem odsek" + dolgiOdseki[izbranDolgiOdsek] + " v tip" + nenajdeniTipi[1] +  "stdilgih odsekov " + dolgiOdseki.length);
+							//console.log("prepsujem odsek" + dolgiOdseki[izbranDolgiOdsek] + " v tip" + nenajdeniTipi[1] +  "stdilgih odsekov " + dolgiOdseki.length);
 							skupine[dolgiOdseki[izbranDolgiOdsek]][k+minZaporednih].sectionType = nenajdeniTipi[1];
 						}
 					}
@@ -204,21 +204,45 @@ module.exports = {
 				if(i == odseki.length-1)
 				{
 					//skupine.push(skupina);
-					console.log("koncna: "+ stevec);
+					//console.log("koncna: "+ stevec);
 				}
 			}
 			else
 			{
-				console.log("koncna: "+ stevec);
+				//console.log("koncna: "+ stevec);
 				trenutniTip = odseki[i].sectionType;
 				stevec = 0;
 				stevec++;
 			}
 		}
 
-		console.log("------------------------------");
-	
+		//izracunamo delez vsake podlage
+		var stVodnihOdsekov = 0;
+		var stSneznihOdsekov = 0;
+		var stLedenihOdsekov = 0;
+		for(var i= 0; i < odseki.length; i++)
+		{
+			if(odseki[i].sectionType == 0)
+			{
+				stSneznihOdsekov++;
+			}
+			else if(odseki[i].sectionType == 1)
+			{
+				stLedenihOdsekov++;
+			}
+			else
+			{
+				stVodnihOdsekov++;
+			}
+		}
+		var stVseh = stSneznihOdsekov+stLedenihOdsekov+stVodnihOdsekov;
+		var waterPercent =  Math.round(((stVodnihOdsekov / stVseh) * 100)*10) / 10;
+		var snowPercent = Math.round(((stSneznihOdsekov / stVseh) * 100)*10) / 10;
+		var icePercent = Math.round(((stLedenihOdsekov / stVseh) * 100)*10) / 10;
 
+		console.log("water: "+waterPercent);
+		console.log("snow:"+snowPercent);
+		console.log("ice"+icePercent);
 		//podatke shranimo v json
 		generiranaProga = new racetrack({
 			name: name,
@@ -226,6 +250,9 @@ module.exports = {
 		    sectionCounter: sectionCounter,
 		    reward: reward,
 		    sectionArray: odseki,
+		    waterPercent:waterPercent,
+		    snowPercent:snowPercent,
+		    icePercent:icePercent,
 		});
 
 

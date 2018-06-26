@@ -1,15 +1,18 @@
 {
   "name": "projektapi",
   "version": "1.0.0",
-  "description": "",
-  "postinstall": "npm run build",
-  "scripts": {
-    "start": "node index.js"
+  "engines": {
+    "node": "8.10.0"
   },
+  "description": "",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "tadeja, luka, filip",
   "license": "ISC",
   "dependencies": {
+    "@angular/animations": "^6.0.4",
     "async": "^2.6.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
@@ -18,13 +21,13 @@
     "cors": "^2.8.4",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "express-validator": "^5.0.3",
-    "helmet": "^3.12.0",
+    "helmet": "^3.12.1",
     "json-size": "^1.0.0",
     "jsonwebtoken": "^8.2.2",
-    "method-override": "^2.3.10",
     "mongoose": "^5.0.12",
-    "nodemon": "^1.17.3",
+    "nodemon": "^1.17.5",
     "request": "^2.85.0"
   }
 }

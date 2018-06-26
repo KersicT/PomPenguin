@@ -20,7 +20,19 @@
 	        "type":Number,
 	        "required":true
 	    },
-	    "sectionArray": [] //shrani id-je odsekov
+	    "sectionArray": [], //shrani id-je odsekov
+	    "waterPercent":{
+	        "type":Number,
+	        //"required":true
+	    },
+	    "snowPercent":{
+	        "type":Number,
+	        //"required":true
+	    },
+	    "icePercent":{
+	        "type":Number,
+	        //"required":true
+	    },
 	
   });
 

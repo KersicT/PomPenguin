@@ -19,11 +19,13 @@ router.get('/showRegistracija',function(req,res,next){
 router.post('/prijava',function(req,res,next){
 
       userModel.authenticate(req.body.username, req.body.password, function (error, user) {
-      if (error || !user) {
+      if (!user) {
+		res.json({message:'Wrong username or password'});      	
+      }
+      else if(error ){
       	console.log(error);
-      	res.json({message:'error'});
-
-      } else {
+      	res.json({message:'Connection faled'});
+      }else {
       	//seja
       	//req.session.userId = user._id;
       	//req.session.username = user.username;
@@ -42,115 +44,112 @@ router.post('/prijava',function(req,res,next){
 
 router.post('/registracija',function(req,res,next){
 
-		/*var osnovniPingvin = new penguin({
-			name: 'Pingo',
-			color: 'blue',
-			baseSpeed: 20,
-			speed:{
-				swim: 0.2,
-				slide: 0.2,
-				run: 0.1
-			},
-			penguinCost: 0,
-			improvements:{
-				iceImprov:{
-					level:1,
-					speed:0
-				},
-				snowImprov:{
-					level:1,
-					speed:0
-				},
-				waterImprov:{
-					level:1,
-					speed:0
-				}
-			}
 
-		});*/
-
-		penguin.find({"name": "Pingo"},function(err, pen){
-			//console.log(pen[0]._id);
-			if(err){
+		//Preverimo ce email ali uporabnisko ime ze obstajata
+		userModel.find(function(err, users){
+			if(!users) //uporabnik z takim imenom se ne bostaja
+			{
 				console.log(err);
-				res.status(500).send({
-					err:err
-				});
-			}else{
-				var kupljeni = [];
-				kupljeni.push(pen[0]._id);
-				var izboljsave = [];
-				var leveli = ({
-					snowLevel:0,
-					iceLevel:0,
-					waterLevel:0
-				});
-				izboljsave.push(leveli);
-				var IdPingvina = pen[0]._id;
-				var user = new userModel({
-					email: req.body.email,
-					username: req.body.username,
-					password: req.body.password,
-					coins: 1000,
-					selectedPenguin_id: IdPingvina,
-					selectedImprovements: leveli,
-					boughtPenguins: kupljeni,
-					boughtImprovements: izboljsave,
-				});
-				//console.log(user);
-				user.save(function(err,user){
+				return res.status(500).json({
+	            	message: 'Error when creating user',
+	                error: err
+	            });
+	
+			}
+			else
+			{
+				//preverimo da uporabik se ne obstaja
+ 				var usernameExist = false;
+ 				var emailExist = false;
+ 				for(var i = 0; i < users.length; i++)
+ 				{
+ 					if(users[i].email == req.body.email)
+ 					{
+ 						res.json({message:'You are already registred!'});
+ 						emailExist = true;
+ 						break;
+ 					}
+ 					if(users[i].username == req.body.username)
+ 					{
+ 						res.json({message:'Username is already taken!'});
+ 						usernameExist = true;
+ 						break;
+ 					}
+ 				}
+
+ 				//preverimo ali ima gelslo pod 48 zankov in nad 3
+ 				var primernoGelso = true
+ 				if(req.body.password.length > 58)
+ 				{
+ 					res.json({message:'Password must have less than 58 characters!'});
+ 					primernoGelso = false;
+ 				}
+ 				else if(req.body.password.length < 4)
+ 				{
+ 					res.json({message:'Password must have at least 4 characters!'});
+ 					primernoGelso = false;
+ 				}
+ 				if(usernameExist == false && emailExist == false && primernoGelso == true)
+ 				{
+
+
+					penguin.find({"name": "Pingo"},function(err, pen){
+					//console.log(pen[0]._id);
 					if(err){
 						console.log(err);
-						return res.status(500).json({
-			            	message: 'Error when creating user',
-			                error: err
-			            });
+						res.status(500).send({
+							err:err
+						});
 					}else{
-						jwt.sign({user: user}, 'mafiluta', {expiresIn: '2 days'}, (err, token) =>{
-				      		res.json({message:'success', token:token, user:user});
-				      	});
+						var kupljeni = [];
+						kupljeni.push(pen[0]._id);
+						var izboljsave = [];
+						var leveli = ({
+							snowLevel:0,
+							iceLevel:0,
+							waterLevel:0
+						});
+						izboljsave.push(leveli);
+						var IdPingvina = pen[0]._id;
+						var user = new userModel({
+							email: req.body.email,
+							username: req.body.username,
+							password: req.body.password,
+							coins: 1000,
+							selectedPenguin_id: IdPingvina,
+							selectedImprovements: leveli,
+							boughtPenguins: kupljeni,
+							boughtImprovements: izboljsave,
+						});
+						//console.log(user);
+						user.save(function(err,user){
+							if(err){
+								console.log(err);
+								return res.status(500).json({
+					            	message: 'Error when creating user',
+					                error: err
+					            });
+							}else{
+								jwt.sign({user: user}, 'mafiluta', {expiresIn: '2 days'}, (err, token) =>{
+						      		res.json({message:'success', token:token, user:user});
+						      	});
 
+							}
+
+						});
 					}
 
 				});
+
 			}
 
-		});
+		}
+	})
 
-	/*	//prvi osnovni pingvin, ki ga uporabnik dobi
-		penguin.find({"name":"Pingo"}, function(err, osnovniPingvin)
-		{
-			var osnovni = osnovniPingvin;
-			console.log(osnovniPingvin);
-			var kupljeni = [];
-			kupljeni.push(osnovni._id);
 
-			var user = new userModel({
-				email: req.body.email,
-				username: req.body.username,
-				password: req.body.password,
-				coins: 100,
-				selectedPenguin_id: osnovniPingvin._id,
-				boughtPenguins: kupljeni
-			});
+		
 
-			console.log(user);
-			/*user.save(function(err,user){
-				if(err){
-					console.log(err);
-					return res.status(500).json({
-		            	message: 'Error when creating user',
-		                error: err
-		            });
-				}else{
-					jwt.sign({user: user}, 'mafiluta', {expiresIn: '2 days'}, (err, token) =>{
-			      		res.json({message:'success', token:token, user:user});
-			      	});
-
-				}
-
-			});
-		})*/
+	
 
 });
 
@@ -340,7 +339,7 @@ router.post('/selectPenguin',function(req,res,next){
 	      				index = i;
 	      			}
 	      		}
-				currUser.selectedImprovements = currUser.boughtImprovements[0];
+				currUser.selectedImprovements = currUser.boughtImprovements[index];
 				console.log("SELECT PENGUIN");
 				//console.log(penguinId  + " " + index + " " + JSON.stringify( currUser.selectedImprovements));
 	      	
@@ -535,6 +534,53 @@ router.post('/update',function(req,res,next){
 		      	});
 	      }
 
+	    });
+	}
+
+});
+
+
+router.post('/putUser',function(req,res,next){
+
+	var user;
+	const bearerHeader = req.headers['authorization'];
+
+  	if(typeof bearerHeader !== 'undefined'){
+    	const bearer = bearerHeader.split(' ');
+    	const bearerToken = bearer[1];
+    	req.token = bearerToken;
+
+		jwt.verify(req.token, 'mafiluta',(err, authData) =>
+	    {
+	      if(err){
+	        res.sendStatus(403);
+
+	      }
+	      else
+	      {
+	      	user = authData.user;
+	       	console.log(req.body.username);
+	      	userModel.findOne({_id: user._id}, function(err, currUser){
+			      currUser.username =  req.body.username;
+			      currUser.email =  req.body.email;
+
+			     	currUser.save(function(err, changedUser){
+				  		console.log(changedUser);
+						if(err){
+							console.log(err);
+							return res.status(500).json({
+					           	message: 'Error when creating user',
+				                error: err
+				            });
+
+						}else{
+							
+							res.json({message:'success', changedUser:changedUser});
+						}
+					}); 
+		    });
+		    
+		  }
 	    });
 	}
 

@@ -26,11 +26,12 @@
 				var proga;
 				var jsonProge;
 				$.ajax({
-				  url: "http://localhost:3000/racetrack/generator/2",
+				  url: "http://localhost:3000/racetrack/generator/10",
 				  context: document.body
 				}).done(function(res) {
 				  jsonProge = JSON.stringify(res, null, 2);
 				  //alert(jsonProge);
+				  console.log(jsonProge);
 				  //$("#izpisJSON").html(jsonProge);
 				  proga = JSON.parse(JSON.stringify(res));
 				  izrisiProgo(proga);
@@ -73,7 +74,10 @@
 	        "time":objekt.time,
 	        "sectionCounter":objekt.sectionCounter, 
 	        "reward":objekt.reward,
-	        "sectionArray": objekt.sectionArray
+	        "sectionArray": objekt.sectionArray,
+	        "waterPercent": objekt.waterPercent,
+	        "snowPercent": objekt.snowPercent,
+	        "icePercent": objekt.icePercent,
 	      
 		  },
 		  dataType: 'json',
@@ -124,7 +128,7 @@
 								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 1)
 								{
 									var slika = $('<img>');
-									slika.attr('src', '../slike/o.png');
+									slika.attr('src', '../slike/prazno.png');
 									slika.css('margin', '16px');
 									
 								}
@@ -132,6 +136,24 @@
 								{
 									var slika = $('<img>');
 									slika.attr('src', '../slike/x.png');
+									slika.css('margin', '20px');
+								}
+								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 3)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/x.png');
+									slika.css('margin', '20px');
+								}
+								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 4)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/coin.png');
+									slika.css('margin', '20px');	
+								}
+								else if(proga.sectionArray[i].obstacleMatrix[j][k] == 5)
+								{
+									var slika = $('<img>');
+									slika.attr('src', '../slike/rocket.png');
 									slika.css('margin', '20px');
 								}
 								else

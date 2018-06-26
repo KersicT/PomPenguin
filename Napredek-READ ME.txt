@@ -20,7 +20,47 @@ Filip(23.4.2018 23:01)
 Luka(24.4.2018 22:06)
 	-parsanje imen za proge (getRaceTracks) - /parsers/namesParser.js
 	-posodobitev racetrackRouter, za parsanje imen proge (/racetrack/names)
-Tadeja(1.5.2018 11.28)
+Tadeja(1.5.2018 11:28)
 	-popravljeno shranjevanje v bazo
 	-skupen dostop do baze z mLab
-		https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment
+Luka(6.5.2018 1:39)
+	sem kar uzeu citat iz sporočila. Se mi ne lubi na novo pisat je 1:40 že... xD
+
+	-popravi se da bojo ovire tut dveh stopenj torej zaj mamo 2 
+	(Ovire lvl 3 oz. težje stopnje se pojavljajo glede na težavnost)
+
+	tam ko je ovira zaj daj nekaj od teh da bojo 3 cekine doloci z 4 pa powerupe z 5
+	-postavitev cekinov na progo in sicer tam ko ni ovir pa tak da jih bo več zaporedno skupaj..
+	(Pojavljajo se po 3 hkrati)
+
+	-postavitev powerupov na progo tak ko smo se pri ui menli.. 
+	tak da niso na ovirah drugace pa cisto rednom pa redko naj se pojavlajo
+	(pojavljajo se 1x na 2 odseka približno. vsaj tako je če greš po možnostih gledat)
+Tadeja(21.5.2018)
+	-A* za simulator
+Filip(22.5.2018)
+	-model za ovire(faktor pocasnitve, cas pocasnitve, tip glede na podlago)
+    	-model za izboljsave(ime,tip glede na podlago, vrednost)
+   	-model za izboljsanega pingvina(model ki poveze pingvina z izboljsavami)
+Luka(22.5.2018)
+	-Združeno
+	-Začetek simulatorja
+Luka(22.5.2018)
+	-Dokončan simulator (vrača le skupni čas proge ZAENKRAT. lahko preverite 
+	na "http://localhost:3000/simulator/" skupni čas je 717,5625 ker je proga vedno ista?
+Luka(23.5.2018)
+	-simulator dokončan vključno s stranjo za testiranje /testirajSimulator
+Filip(23.5.2018)
+	-Popravil bazo
+	-construced prenguin
+	-API za constructed penguin in izboljšave
+	-model za simulator
+Tadeja(23.5.2018)
+	-API da bere iz baze
+	-Mobilna aplikacija
+Tadeja(24.52018)
+	-izris tabel pri testu simulatorja
+	-pri testu proge sem dodala funkcijo, da lahko progo prikazemo tudi iz baze preko idja ali izberemo da se proga generira in poravila shranjevanje generirane proge v bazo
+Luka(24.5.2018)
+	-NAPAKA PRI ZDRUŽEVANJU -> star generator
+ 	-POPRAVLJENA VERZIJA V DISCORDU -> ProjektAPI(24.5.2018)_POPRAVLJENO
