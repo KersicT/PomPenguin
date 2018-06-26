@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var methodOverride = require('method-override');
 //var expressValidator = require('expressValidator');
 
 var app = express();
@@ -11,6 +12,8 @@ var compression = require('compression');
 app.use(compression()); //Compress all routes
 var helmet = require('helmet');
 app.use(helmet());
+app.use(express.methodOverride());
+app.use(cors());
 
 //CORS
 
@@ -75,7 +78,7 @@ function verifyToken(req, res, next){
 
 
 
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -92,7 +95,7 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});
+});*/
 
 //baza
 var mongoose = require('mongoose');
