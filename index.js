@@ -81,23 +81,9 @@ function verifyToken(req, res, next){
 }
 
 
-//seja
-var session = require('express-session');
-app.use(session({
-  secret: 'work hard',
-  resave: true,
-  saveUninitialized: false
-}));
 
-//production mode - zaradi vernosti odstrani error pages and in sčisti logging
-process.env.NODE_ENV = 'production';
-var compression = require('compression'); // zmanjsa cas nalaganja
-app.use(compression()); //Compress all routes
-var helmet = require('helmet');
-app.use(helmet());
-//menjaj console z debug
 
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -114,7 +100,7 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});
+});*/
 
 //baza
 var mongoose = require('mongoose');
@@ -191,6 +177,6 @@ app.get('/testSimulator', function(req, res){
 })
 
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(3000, function(){
 	console.log("server started on Port 3000...");
 })
