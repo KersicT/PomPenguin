@@ -58,9 +58,11 @@ Filip(23.5.2018)
 Tadeja(23.5.2018)
 	-API da bere iz baze
 	-Mobilna aplikacija
-Tadeja(24.52018)
+Tadeja(24.5.2018)
 	-izris tabel pri testu simulatorja
 	-pri testu proge sem dodala funkcijo, da lahko progo prikazemo tudi iz baze preko idja ali izberemo da se proga generira in poravila shranjevanje generirane proge v bazo
 Luka(24.5.2018)
 	-NAPAKA PRI ZDRUŽEVANJU -> star generator
  	-POPRAVLJENA VERZIJA V DISCORDU -> ProjektAPI(24.5.2018)_POPRAVLJENO
+Tadeja in Saso(8.10.2018)
+    -source control test
