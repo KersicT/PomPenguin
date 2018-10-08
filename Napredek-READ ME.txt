@@ -66,3 +66,4 @@ Luka(24.5.2018)
  	-POPRAVLJENA VERZIJA V DISCORDU -> ProjektAPI(24.5.2018)_POPRAVLJENO
 Tadeja in Saso(8.10.2018)
     -github test
+    -merge conflict test
